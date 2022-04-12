@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Report{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+            {# the CSS file lives at "public/css/blog.css" #}
+            <link href="{{ asset('css/report.css') }}" rel="stylesheet"/>
+        {% endblock %}
+
+        {# beware that the blocks in your template may be named different #}
+        {% block head_css %}
+            <!-- Copy CSS from https://getbootstrap.com/docs/4.0/getting-started/introduction/#css -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        {% endblock %}
+        {% block head_js %}
+            <!-- Copy JavaScript from https://getbootstrap.com/docs/4.0/getting-started/introduction/#js -->
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    
+    <body>
+
+        {% block body %}
+        <div class="container">
+            
+                <div class="card m-4">
+                    <div class="card-header">
+                        Report
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3">
+                                <form action="#" method="post">
+                                    <div class="form-group">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                        <select class="form-control form-sm" id="location" name="location">
+                                            <option>Local:</option>
+                                            {% for location in locations %}
+                                                <option value="{{ location }}">{{ location }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div><!-- /.form-group -->
+                                    <div class="form-group">
+                                        <input type="date" class="form-control form-sm" id="dateFrom" name="dateFrom">
+                                    </div><!-- /.form-group -->
+                                    <div class="form-group">
+                                        <input type="date" class="form-control form-sm" id="dateTo" name="dateTo">
+                                    </div><!-- /.form-group -->
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-sm btn-primary" value="Zatwierdz">
+                                    </div><!-- /.form-group -->
+                                </form>
+                            </div><!-- /.col-3 -->
+                            <div class="col-9">
+                                <table class="table table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Nazva</th>
+                                            <th>Data</th>
+                                            <th>Godzina</th>
+                                            <th>Uzytkownik</th>
+                                            <th>Local</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for report in reports %}
+                                        <tr>
+                                            <td>{{ report.name }}</td>
+                                            <td>{{ report.date.format('Y-m-d') }}</td>
+                                            <td>{{ report.date.format('H:i') }}</td>
+                                            <td>{{ report.person }}</td>
+                                            <td>{{ report.location }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div><!-- /.col-9 -->
+                        </div><!-- /.row -->
+                    </div><!-- /.card-body -->
+                </div><!-- /.card -->
+            
+        </div><!-- /.container -->
+        {% endblock %}
+    
+    </body>
+</html>
