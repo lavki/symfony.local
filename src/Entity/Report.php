@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\ReportRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReportRepository;
 
 /**
  * @ORM\Entity(repositoryClass=ReportRepository::class)
