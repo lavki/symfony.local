@@ -25,15 +25,15 @@ class ReportController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             /** @var ReportRepository $repo */
             $repo = $entityManager->getRepository(Report::class);
-            $report = $repo->findByFilter(new FilterFormDTO(...$form->getData()));
+            $reports = $repo->findByFilter(new FilterFormDTO(...$form->getData()));
         } else {
-            $report = $this->getDoctrine()->getRepository(Report::class)->findAll();
+            $reports = $this->getDoctrine()->getRepository(Report::class)->findAll();
         }
 
 
         return $this->render('report.html.twig', [
             'form' => $form->createView(),
-            'reports' => $report,
+            'reports' => $reports,
         ]);
     }
 }
